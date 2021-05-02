@@ -1,13 +1,15 @@
-#  Dockerfile
-#
-# docker build -t python-imdb .
-# docker run python-imdb
-# docker run -t -i python-imdb
+#  docker build -t python-fastapi .
+#  doker run -p 8000:8000 python-fastapi
+#  eval "$(ssh-agent -s)"
 
 FROM python:3.8
 
-ADD main.py .
+WORKDIR /fastapi-app
 
-RUN pip install requests beautifulsoup4
+COPY requirements.txt .
 
-CMD [ "python", "./main.py"]
+RUN pip install -r requirements.txt
+
+COPY ./app ./app
+
+CMD [ "python", "./app/main.py" ]
